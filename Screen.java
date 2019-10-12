@@ -105,7 +105,7 @@ public class Screen extends JPanel implements KeyListener{
 		gr.setColor(Color.black);
 		gr.fillRect(0, 0, 1000, 600);
 		
-		
+		//############### Inventory Screen #################################
 		if(mainMenu){
 			
 			
@@ -165,28 +165,21 @@ public class Screen extends JPanel implements KeyListener{
 			
 
 			
-		} else {
+		} else { //############### Gameplay Painting #################################
 				
 			for(int i =0; i < items.size(); i++){
 				tiles[items.get(i).getX()][items.get(i).getY()] = items.get(i);
 			}
 			
-			
 			if(stairX != -1 && stairY != -1)
-				tiles[stairX][stairY] = new StairTile(stairX, stairY);
-			
-			
+				tiles[stairX][stairY] = new StairTile(stairX, stairY);			
 			
 			for(int i=0; i < mobs.size(); i++){
 				if(mobs.get(i).getAlive())
 					tiles[mobs.get(i).getX()][mobs.get(i).getY()] = mobs.get(i);
 			}
 			
-					
-			
-			
 			tiles[p1.getX()][p1.getY()] = p1;
-			
 			
 			for(int i =0; i < tiles.length; i++){
 				for(int j =0; j < tiles[i].length; j++){
@@ -194,11 +187,6 @@ public class Screen extends JPanel implements KeyListener{
 					gr.drawString(tiles[i][j].getImage(), i*10+50, j *10+10);
 				}
 			}
-			
-
-			
-			
-	//		gr.fillRect(0, 500, 1000, 100); // Bottom Bar 
 			
 			int grayR=150, grayG=150, grayB=150;
 			// Drawing the thick bar around chat/msg area (w/t gradiant)
@@ -217,7 +205,8 @@ public class Screen extends JPanel implements KeyListener{
 				gr.drawString(bb.getMessage(i), 15, 525+(20*i));
 			}
 			
-			
+
+			//############### Inventory Screen #################################
 			if(inventoryScreen){
 				//Drawing the main frame of the invScreen (BG)
 				gr.setColor(invScreenBG);
@@ -232,7 +221,6 @@ public class Screen extends JPanel implements KeyListener{
 				gr.setColor(invScreenHighlight);
 				gr.fillRect(65, (25*invHighlighted) + 20, 300, 20);
 				
-				
 				gr.setColor(Color.white);
 				gr.setFont(invFont);
 				
@@ -245,17 +233,16 @@ public class Screen extends JPanel implements KeyListener{
 					
 					yOffset += 25;
 				}
-
-
 				
 			}
 			
 			//Drawing outlines of the rooms
+			/*
 			gr.setColor(Color.white);
 			for(int i =0; i < roomArr.size(); i++){
 				gr.drawRect((roomArr.get(i).getX()*10+50), (roomArr.get(i).getY()*10), (roomArr.get(i).getSizeX()*10), (roomArr.get(i).getSizeY()*10));
 			}
-			
+			*/
 			
 			//Seperating the bottom bar into halves
 			gr.setColor(Color.green);
