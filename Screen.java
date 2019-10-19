@@ -453,12 +453,6 @@ public class Screen extends JPanel implements KeyListener{
 			}
 			
 		 }
-	
-		
-		
-		
-		
-		
 	}
 	
 	private Item genItem(){
