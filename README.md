@@ -8,8 +8,8 @@ Nonetheless, this was a passion project for me and represents my passion for pro
 
 If anyone really wants to play it (or you can play the original game it was inspired by here: https://alt.org/nethack/), I can upload a .exe file that runs the game, just message me through GitHub. If you already have java installed it should only take a "javac *.java && java Runner" command from terminal to run this.
 
-![Image of gameplay] (https://raw.githubusercontent.com/psousa612/NetHackClone/master/screenshot1.png)
-
-![Image of gameplay] (https://raw.githubusercontent.com/psousa612/NetHackClone/master/screenshot2.png)
+Here are two links to pictures of the gameplay:
+https://raw.githubusercontent.com/psousa612/NetHackClone/master/screenshot1.png
+https://raw.githubusercontent.com/psousa612/NetHackClone/master/screenshot2.png
 
 
