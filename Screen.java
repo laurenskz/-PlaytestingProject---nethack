@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Screen extends JPanel implements KeyListener{
 	
@@ -30,11 +32,28 @@ public class Screen extends JPanel implements KeyListener{
 	private boolean playerTurn, aimingBow;
 	private BottomBar bb;
 	private MusicPlayer mp;
+	private int moves;
+	//private seedNumbers SeedNumbers;
 	
 	private int bgRed, bgGreen, bgBlue;
 	private int goalRed, goalGreen, goalBlue;
-	
-	
+
+
+	private String[][] levelMap;
+	//private ArrayList[][] levelMap;
+	private int rows, cols;
+
+
+	private int seed = 1;
+	Random generator = new Random(seed);
+
+	//private Random seedNum;
+	//private Random generator;
+
+
+
+
+
 	public Screen(){
 		tiles = new Tile[90][50];
 		
@@ -49,7 +68,9 @@ public class Screen extends JPanel implements KeyListener{
 		//mp.start(); //Need to change the music as i dont like stealing :/
 		
 		level = 0;
-		
+		moves = 0;
+
+
 		menuHighlighted = 0;
 		mainMenu = true;
 		
@@ -65,8 +86,8 @@ public class Screen extends JPanel implements KeyListener{
 		invScreenHighlight = new Color(0.69803f, 0.69803f, 0.69803f, 0.9f);
 		invScreenEquipped = new Color(1.0f, 1.0f, 0.0f, 0.9f);
 		consoleGreen = new Color(0, 255, 26);
-		
-		
+
+
 
 		bgRed = ((int)(Math.random() * 255));
 		bgGreen = ((int)(Math.random() * 255));
@@ -230,7 +251,7 @@ public class Screen extends JPanel implements KeyListener{
 					//Is there a better way to cast thing back down to their org object type?
 					Item item = ps.getInvItem(i);			
 					gr.drawString(item.toString() + item.getAttackDmgString(), 70, 35+yOffset);
-					
+
 					yOffset += 25;
 				}
 				
@@ -246,10 +267,10 @@ public class Screen extends JPanel implements KeyListener{
 			
 			//Seperating the bottom bar into halves
 			gr.setColor(Color.green);
-			gr.fillRect(510, 510, 481, 81);
+			gr.fillRect(950, 510, 481, 81);
 			
 			gr.setColor(Color.black);
-			gr.drawString(level + "", 520, 520);
+			gr.drawString(level + "", 970, 550);
 
 			
 			
@@ -278,21 +299,64 @@ public class Screen extends JPanel implements KeyListener{
 	}
 	
 	private void mapSetUp(){
-		
 		level++;
-		
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+		rows = 90;
+		cols = 50;
+		levelMap = new String [rows][cols];
+
+		//ArrayList[] levelMap = new ArrayList[rows];
+		//levelMap[0] = new ArrayList(); // add another ArrayList object to [0,0]
+		//levelMap[0].add();
+
+
+		//System.out.println(levelMap[1][2]);
+		//levelMap[1][2]= "d";
+		//System.out.println(levelMap[1][2]);
+		//System.out.println("ssss");
+
+		//levelMap[1][2]= "0";
+		//System.out.println(levelMap[1][2]);
+
+
+
+
+		// Empty the level Map array
+		//levelMap = null;
+
+
+		for (String[] i : levelMap)
+			Arrays.fill(i, "#");
+
+
+
+		//for (String[] i : levelMap)
+			// converting each row as string and then printing in a separate line
+		//	System.out.println(Arrays.toString(i));
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 		//Clearing the tiles array
 		for(int i=0; i < tiles.length; i++){
 			for(int j =0; j  < tiles[i].length; j++){
 				tiles[i][j] = new Wall();
 			}
 		}
-		
+
+
+
+
 		//Setting the tile's x & y
 		for(int i=0; i < tiles.length; i++){
 			for(int j =0; j  < tiles[i].length; j++){
 				tiles[i][j].setX(i);
 				tiles[i][j].setY(j);
+
 			}
 		}
 		
@@ -312,6 +376,8 @@ public class Screen extends JPanel implements KeyListener{
 			 for(int i =10; i < 40; i++){
 				 for(int j = 10; j < 40; j++){
 				 	 tiles[i][j]=new FloorTile(i, j);
+					 // levelMap
+					 levelMap[i][j] = " ";
 				 }
 			 }
 			 
@@ -319,13 +385,21 @@ public class Screen extends JPanel implements KeyListener{
 			 int randX =0, randY = 0;
 			do{
 				do{
-					randX = (int) (Math.random() * 90);
-					randY = (int) (Math.random() * 50);
+					randX = generator.nextInt(90);
+					randY = generator.nextInt(50);
+					
+					//randX = (int) (Math.random() * 90);
+					//randY = (int) (Math.random() * 50);
 				} while(!(tiles[randX][randY] instanceof FloorTile && !(tiles[randX][randY] instanceof Player)));
 			} while(!isInRoom(randX, randY));
-			 
+
 			 mobs.add(new Boss(randX, randY));
-			 
+			 //System.out.println(randX);
+			 //System.out.println(randY);
+			 // levelMap
+			 levelMap[randX][randY] = "B";
+
+
 			 stairX = -1;
 			 stairY = -1;
 			 
@@ -358,123 +432,216 @@ public class Screen extends JPanel implements KeyListener{
 				}
 			}
 			*/
-			
-			
+
+			//System.out.println(tiles.length);
+			//System.out.println(tiles[1].length);
+
 			//Placing Wall tiles around the FloorTiles
-			for(int i =0; i < tiles.length; i++){
-				for(int j =0; j < tiles[i].length; j++){
+			for(int i =0; i < tiles.length; i++){	//90
+				for(int j =0; j < tiles[i].length; j++){	//50
 					if(i == 0){
 						if(tiles[i+1][j] instanceof FloorTile)
 							tiles[i][j] = new Wall(i, j);
+							// levelMap
+							levelMap[i][j] = "#";
+
 					} else if(i == 89){
 						if(tiles[i-1][j] instanceof FloorTile)
 							tiles[i][j] = new Wall(i, j);
+							// levelMap
+							levelMap[i][j] = "#";
 					} else if( j ==0){
 						if(tiles[i][j+1] instanceof FloorTile)
 							tiles[i][j] = new Wall(i, j);
+							// levelMap
+							levelMap[i][j] = "#";
 					} else if(j == 49){
 						if(tiles[i][j-1] instanceof FloorTile)
 							tiles[i][j] = new Wall(i, j);
+							// levelMap
+							levelMap[i][j] = "#";
 					}	
 				}
 			}
-			
-			
+
+
 			
 			//Placing the stairs to the next level
 			int randX, randY;
 			
 			do{
 				do{
-					randX = (int) (Math.random() * 90);
-					randY = (int) (Math.random() * 50);
+
+					randX = generator.nextInt(90);
+					randY = generator.nextInt(50);
+
+					//randX = (int) (Math.random() * 90);
+					//randY = (int) (Math.random() * 50);
 				} while(!(tiles[randX][randY] instanceof FloorTile));
 			} while(!isInRoom(randX, randY));
 			
 			tiles[randX][randY] = new StairTile(randX, randY);
 			stairX = randX;
 			stairY = randY;
+			// System.out.println("x:"+randX + "y:"+randY);
+			 // levelMap
+			 levelMap[randX][randY] = ">";
 			
 			//Placing the player in a room too
 			do{
 				do{
-					randX = (int) (Math.random() * 90);
-					randY = (int) (Math.random() * 50);
+					randX = generator.nextInt(90);
+					randY = generator.nextInt(50);					
+					
+					//randX = (int) (Math.random() * 90);
+					//randY = (int) (Math.random() * 50);
 				} while(!(tiles[randX][randY] instanceof FloorTile));
 			} while(!isInRoom(randX, randY));
 			
 			p1 = new Player(randX, randY);
+			 // levelMap
+			 levelMap[randX][randY] = "@";
+			 //System.out.println(tiles[randX][randY]);
 			
-			//Gen & placing random items
-			for(int i =0; i < ((int)(Math.random() * 140 + 2)); i++){
+			//Gen & placing random items   --> OLD CODE: for(int i =0; i < ((int)(Math.random() * 140 + 2)); i++)
+			for(int i =0; i < (2+ (generator.nextInt(140))); i++) {
 				//System.out.println("" + i);
-				do{
-					do{
-						randX = (int) (Math.random() * 90);
-						randY = (int) (Math.random() * 50);
-					} while(!(tiles[randX][randY] instanceof FloorTile));
-				} while(!isInRoom(randX, randY));
-				
+				do {
+					do {
+						
+						randX = generator.nextInt(90);
+						randY = generator.nextInt(50);
+						
+						//randX = (int) (Math.random() * 90);
+						//randY = (int) (Math.random() * 50);
+					} while (!(tiles[randX][randY] instanceof FloorTile));
+				} while (!isInRoom(randX, randY));
+
 				Item item = this.genItem();
-				//System.out.println(item + "1");
+				//System.out.println(item.toString() + "1");
 				tiles[randX][randY] = new ItemTile(item, randX, randY);
+
 				items.add(new ItemTile(item, randX, randY));
+////////////////////////////////////////////////////////////////////////////////////////
+				String case1 = "gold";
+				String case2 = "sword";
+				String case3 = "bow";
+				String case4 = "health";
+				String case5 = "water";
+				String case6 = "food";
+
+
+				
+
+				if (item.toString().toLowerCase().contains(case1.toLowerCase())) {
+					// levelMap
+					levelMap[randX][randY] = "$";
+
+				} else if (item.toString().toLowerCase().contains(case2.toLowerCase())) {
+					// levelMap
+					levelMap[randX][randY] = "/";
+
+				}else if (item.toString().toLowerCase().contains(case3.toLowerCase())) {
+					// levelMap
+					levelMap[randX][randY] = ")";
+
+				}else if (item.toString().toLowerCase().contains(case4.toLowerCase())) {
+					// levelMap
+					levelMap[randX][randY] = "+";
+				}else if (item.toString().toLowerCase().contains(case5.toLowerCase())) {
+					// levelMap
+					levelMap[randX][randY] = "~";
+					
+				}else if (item.toString().toLowerCase().contains(case6.toLowerCase())) {
+					// levelMap
+					levelMap[randX][randY] = "*";
+				}
+
 			}
+//////////////////////////////////////////////////////////////////////////////////////////
+
 			
-			//Gen & placing random mobs
-			for(int i =0; i < ((int)(Math.random() * 14 + 2)); i++){ 
+			//Gen & placing random mobs   ----> OLD CODE: for(int i =0; i < ((int)(Math.random() * 14 + 2)); i++)
+			for(int i =0; i < (2 + (generator.nextInt(14))); i++){
 				
 				do{
 					
 					do{
-						randX = (int) (Math.random() * 90);
-						randY = (int) (Math.random() * 50);
+						randX = generator.nextInt(90);
+						randY = generator.nextInt(50);
+						
+						//randX = (int) (Math.random() * 90);
+						//randY = (int) (Math.random() * 50);
 					} while(!(tiles[randX][randY] instanceof FloorTile));
 				} while(!isInRoom(randX, randY));
 				
 
 				
 				mobs.add(new Monster(randX, randY));
+				// levelMap
+				levelMap[randX][randY] = "a";
 			}
-			
-			for(int i =0; i < ((int)(Math.random() * 6)); i++){ 
+			// OLD CODE: for(int i =0; i < ((int)(Math.random() * 6)); i++)
+			for(int i =0; i < (generator.nextInt(6)); i++){ 
 					
 				do{
 					
 					do{
-						randX = (int) (Math.random() * 90);
-						randY = (int) (Math.random() * 50);
+						randX = generator.nextInt(90);
+						randY = generator.nextInt(50);
+						
+						//randX = (int) (Math.random() * 90);
+						//randY = (int) (Math.random() * 50);
 					} while(!(tiles[randX][randY] instanceof FloorTile));
 				} while(isInRoom(randX, randY));
 				
 
 				
 				mobs.add(new Monster(randX, randY));
+				// levelMap
+				levelMap[randX][randY] = "a";
 			}
 			
 		 }
+
+		for (int i =0; i < cols; i++){
+		 	for (int j=0; j<rows; j++){
+		 		System.out.print(levelMap[j][i]);
+				//System.out.print(tiles[j][i]);
+			}
+			System.out.print("\n");
+		}
+
+
+		//for (String[] row : levelMap)
+
+			// converting each row as string
+			// and then printing in a separate line
+		//	System.out.println(Arrays.toString(row));
+
 	}
-	
+	// OLD CODE: int rand = (int) (Math.random() * 3 +1)
 	private Item genItem(){
-		int rand = (int) (Math.random() * 3 +1); //Come back and update this prob once i add more item
-		
-		
+		int rand = 1 + generator.nextInt(5); //Come back and update this prob once i add more item --> 5 items -> prob=5 (gold, health, weapon, water, food)
+
+
 		Item toReturn = new Sword("ERROR", -1);
 		
 		switch(rand){
-			case 1: //Gold
-				int amount = (int)(Math.random() * 451 + 50);
+			case 1: //Gold --> OLD CODE: int amount = (int)(Math.random() * 451 + 50)
+				int amount = 50 + generator.nextInt(451);
 				while(amount % 5 != 0)
 					amount--;
 				
 				toReturn = new Gold(amount);
+				//System.out.println(toReturn);
 				break;
 			
-			case 2://Sword || Bow
-				if(((int)(Math.random() * 101)) < 50)
-					toReturn = new Sword(weapDict.getRandName(), ((int)(Math.random() * 11)));
+			case 2://Sword || Bow --> OLD CODE: if(((int)(Math.random() * 101)) < 50)
+				if((generator.nextInt(101)) < 50)
+					toReturn = new Sword(weapDict.getRandName(), generator.nextInt(11));  //OLD: ((int)(Math.random() * 11))
 				else
-					toReturn = new Bow(weapDict.getRandName(), ((int)(Math.random() * 4 + 4)));
+					toReturn = new Bow(weapDict.getRandName(), (4 + (generator.nextInt(4)))); //OLD: (int)(Math.random() * 4 + 4)
 					
 				break;
 			
@@ -482,6 +649,14 @@ public class Screen extends JPanel implements KeyListener{
 					toReturn = new HealthPotion();
 				break;
 				
+			case 4://Water 
+					toReturn = new Water();
+				break;
+				
+			case 5://Food 
+					toReturn = new Food();
+				break;	
+		
 			default:
 				System.out.println("4");
 				toReturn = new Item(1);
@@ -496,7 +671,7 @@ public class Screen extends JPanel implements KeyListener{
 		//Plan of Action:
 		//Start at roomArr.get(0), detect the closest room (use just the startX and startY of the rooms)
 		//Detect the closest facing walls of each other
-		//Place floot tiles connecting them (tunneling using a simple algorithm)
+		//Place floor tiles connecting them (tunneling using a simple algorithm)
 		*/
 		
 		
@@ -506,7 +681,7 @@ public class Screen extends JPanel implements KeyListener{
 		for(int i =0; i < roomArr.size(); i++){
 			Room r1 = roomArr.get(i);
 			Room r2 = roomArr.get(this.getClosest(r1, i));
-			
+
 			roomConnector(r1, r2);
 		}
 		
@@ -526,7 +701,10 @@ public class Screen extends JPanel implements KeyListener{
 		//Connecting every room to a random room
 		for(int i =0; i < roomArr.size(); i++){
 			Room r1 = roomArr.get(i);
-			Room r2 = roomArr.get((int)(Math.random() * roomArr.size()));
+			
+			int help1 = roomArr.size();
+			
+			Room r2 = roomArr.get(generator.nextInt(help1));  //OLD CODE: Room r2 = roomArr.get((int)(Math.random() * roomArr.size()));
 			
 			roomConnector(r1, r2);
 		}
@@ -545,7 +723,7 @@ public class Screen extends JPanel implements KeyListener{
 		
 		do{
 			tiles[currX][currY] = new FloorTile(currX, currY);
-			
+
 			if(currY > y2)
 				currY--;
 			else if(currY < y2)
@@ -560,7 +738,10 @@ public class Screen extends JPanel implements KeyListener{
 				System.out.println("ERROR");
 				//System.exit(-1);
 			}
+			// levelMap
+			levelMap[currX][currY] = " ";
 		} while(working);
+
 	}
 	
 	private void roomConnector(Room r1, Room r2){
@@ -598,8 +779,11 @@ public class Screen extends JPanel implements KeyListener{
 						x1 = room1X + r1.getSizeX()-2;
 						x2 = room2X;
 						
-						y1 = ((int)(Math.random() * r1.getSizeY() + room1Y));
-						y2 = ((int)(Math.random() * r2.getSizeY() + room2Y));
+						int help2 = r1.getSizeY();
+						int help3 = r2.getSizeY();
+						
+						y1 = (room1Y + generator.nextInt(help2)); //OLD: y1 = ((int)(Math.random() * r1.getSizeY() + room1Y));
+						y2 = (room2Y + generator.nextInt(help3)); //OLD: y2 = ((int)(Math.random() * r2.getSizeY() + room2Y));
 						
 					} else{
 						
@@ -607,8 +791,12 @@ public class Screen extends JPanel implements KeyListener{
 						y1 = room1Y+r1.getSizeY()-2;
 						y2 = room2Y;
 						
-						x1 = ( (int)(Math.random() * r1.getSizeX() + room1X));
-						x2 = ( (int)(Math.random() * r2.getSizeX() + room2X));
+						int help4 = r1.getSizeX();
+						int help5 = r2.getSizeX();
+						
+						
+						x1 = ( room1X + generator.nextInt(help4)); //OLD: x1 = ( (int)(Math.random() * r1.getSizeX() + room1X));
+						x2 = ( room2X + generator.nextInt(help5)); //OLD: x2 = ( (int)(Math.random() * r2.getSizeX() + room2X));
 						
 						
 						
@@ -621,16 +809,27 @@ public class Screen extends JPanel implements KeyListener{
 						x1 = room1X + r1.getSizeX()-2;
 						x2 = room2X;
 						
-						y1 = ((int)(Math.random() * r1.getSizeY() + room1Y));
-						y2 = ((int)(Math.random() * r2.getSizeY() + room2Y));
+						int help6 = r1.getSizeY();
+						int help7 = r2.getSizeY();
+						
+						y1 = (room1Y + generator.nextInt(help6));
+						y2 = (room2Y + generator.nextInt(help7));
+						//y1 = ((int)(Math.random() * r1.getSizeY() + room1Y));
+						//y2 = ((int)(Math.random() * r2.getSizeY() + room2Y));
 					} else {
 						
 						
 						y1 = room1Y;
 						y2 = room2Y + r2.getSizeY()-2;
 						
-						x1 = ( (int)(Math.random() * (r1.getSizeX()) + room1X));
-						x2 = ( (int)(Math.random() * (r2.getSizeX()) + room2X));
+						int help8 = r1.getSizeX();
+						int help9 = r2.getSizeX();
+						
+						x1 = (room1X + generator.nextInt(help8));
+						x2 = (room2X + generator.nextInt(help9));
+						
+						//x1 = ( (int)(Math.random() * (r1.getSizeX()) + room1X));
+						//x2 = ( (int)(Math.random() * (r2.getSizeX()) + room2X));
 					}
 					
 					
@@ -643,8 +842,15 @@ public class Screen extends JPanel implements KeyListener{
 						x1 = room1X;
 						x2 = room2X + r2.getSizeX()-2;
 						
-						y1 = ((int)(Math.random() * (r1.getSizeY()-1) + room1Y+1));
-						y2 = ((int)(Math.random() * (r2.getSizeY()-1) + room2Y+1));
+						int help10 = r1.getSizeY()-1;
+						int help11 = r2.getSizeY()-1;
+								
+						y1 = ((room1Y+1) + generator.nextInt(help10));
+						y2 = ((room2Y+1) + generator.nextInt(help11));		
+
+						
+						//y1 = ((int)(Math.random() * (r1.getSizeY()-1) + room1Y+1));
+						//y2 = ((int)(Math.random() * (r2.getSizeY()-1) + room2Y+1));
 						
 					} else {
 						
@@ -652,8 +858,14 @@ public class Screen extends JPanel implements KeyListener{
 						y1 = room1Y+r1.getSizeY()-2;
 						y2 = room2Y;
 						
-						x1 = ( (int)(Math.random() * r1.getSizeX() + room1X));
-						x2 = ( (int)(Math.random() * r2.getSizeX() + room2X));
+						int help12 = r1.getSizeX();
+						int help13 = r2.getSizeX();
+						
+						x1 = (room1X + generator.nextInt(help12));
+						x2 = (room2X + generator.nextInt(help13));	
+						
+						//x1 = ( (int)(Math.random() * r1.getSizeX() + room1X));
+						//x2 = ( (int)(Math.random() * r2.getSizeX() + room2X));
 						
 						
 					}
@@ -666,8 +878,14 @@ public class Screen extends JPanel implements KeyListener{
 						x1 = room1X;
 						x2 = room2X + r2.getSizeX()-2;
 						
-						y1 = ((int)(Math.random() * r1.getSizeY() + room1Y));
-						y2 = ((int)(Math.random() * r2.getSizeY() + room2Y));
+						int help14 = r1.getSizeY();
+						int help15 = r2.getSizeY();
+						
+						y1 = (room1Y + generator.nextInt(help14));
+						y2 = (room2Y + generator.nextInt(help15));
+						
+						//y1 = ((int)(Math.random() * r1.getSizeY() + room1Y));
+						//y2 = ((int)(Math.random() * r2.getSizeY() + room2Y));
 						
 						
 					} else {
@@ -675,8 +893,15 @@ public class Screen extends JPanel implements KeyListener{
 						y1 = room1Y;
 						y2 = room2Y + r2.getSizeY()-2;
 						
-						x1 = ( (int)(Math.random() * r1.getSizeX() + room1X));
-						x2 = ( (int)(Math.random() * r2.getSizeX() + room2X));
+						int help16 = r1.getSizeX();
+						int help17 = r2.getSizeX();
+						
+						x1 = (room1X + generator.nextInt(help16));
+						x2 = (room2X + generator.nextInt(help17));
+						
+						
+						//x1 = ( (int)(Math.random() * r1.getSizeX() + room1X));
+						//x2 = ( (int)(Math.random() * r2.getSizeX() + room2X));
 					}
 					
 				}
@@ -745,17 +970,26 @@ public class Screen extends JPanel implements KeyListener{
 	}
 	
 	private void roomGen(){
-		
+
 		Room temp;
 		int sizeX, sizeY, startX, startY;
 		do{
 		
+		sizeX = (3 + generator.nextInt(16));
+		sizeY = (3 + generator.nextInt(16));
 		
-		sizeX = (int)(Math.random() * 16 + 3);
-		sizeY = (int)(Math.random() * 16 + 3);
+		//sizeX = (int)(Math.random() * 16 + 3);
+		//sizeY = (int)(Math.random() * 16 + 3);
+		
+		
+		int help18 = 90-sizeX;
+		int help19 = 50-sizeY;
+		
+		startX = generator.nextInt(help18);
+		startY = generator.nextInt(help19);
 
-		startX = (int)(Math.random() * (90-sizeX));
-		startY = (int)(Math.random() * (50-sizeY));
+		//startX = (int)(Math.random() * (90-sizeX));
+		//startY = (int)(Math.random() * (50-sizeY));
 		
 		temp = new Room(startX, startY, sizeX, sizeY);
 		
@@ -766,14 +1000,15 @@ public class Screen extends JPanel implements KeyListener{
 		for(int i =startX; i < startX+sizeX; i++){
 			for(int j = startY; j < startY+sizeY; j++){
 				tiles[i][j]=new FloorTile(i, j);
+				// levelMap
+				levelMap[i][j] = " ";
+
 			}
 		}
-		
-		
-		
+
 
 	}
-	
+
 	private boolean isInRoom(int x, int y){
 		for(int i =0; i < roomArr.size(); i++){
 			if(x > roomArr.get(i).getX() && x < roomArr.get(i).getX() + roomArr.get(i).getSizeX()){
@@ -803,8 +1038,8 @@ public class Screen extends JPanel implements KeyListener{
 		if(mobs.get(index).getAlive() == false && wasAlive == true){
 			bb.addMessage("You slay the monster.");
 			mobs.get(index).setImage("");
-			//random chance for the monster to drop something
-			if(((int)(Math.random() * 100) < 35))
+			//random chance for the monster to drop something --> OLD CODE: if(((int)(Math.random() * 100) < 35))
+			if((generator.nextInt(100) < 35))
 				items.add(new ItemTile(this.genItem(), mobs.get(index).getX(), mobs.get(index).getY()));
 			else
 				tiles[x][y] = new FloorTile();
@@ -899,9 +1134,10 @@ public class Screen extends JPanel implements KeyListener{
 				bb.addMessage("You ascend the stairs.");
 				tiles[p1.getX()][p1.getY()] = new FloorTile(p1.getX(), p1.getY());
 				this.mapSetUp();
-				
-			} 
-			
+
+
+			}
+
 			//Monster's turn
 			if(!playerTurn){
 				for(int i =0; i < mobs.size(); i++){
@@ -909,7 +1145,7 @@ public class Screen extends JPanel implements KeyListener{
 						bb.addMessage("The monster attacks you for " + mobs.get(i).getAttackDmg() + " health.");
 						ps.reduceHealth(mobs.get(i).getAttackDmg());
 						if(ps.getHealth() == 0){
-							bb.addMessage("You have perished.");
+							bb.addMessage("You Died...");
 							ps.setAlive(false);
 						}
 					}
@@ -922,8 +1158,10 @@ public class Screen extends JPanel implements KeyListener{
 						
 						
 						tiles[mobs.get(i).getX()][mobs.get(i).getY()] = new FloorTile();
-					
-						if(((int)(Math.random() * 100 + 1)) < 50){
+						
+						//OLD CODE: if(((int)(Math.random() * 100 + 1)) < 50)
+						
+						if((1 + generator.nextInt(100)) < 50){
 							if(noMobs(mobs.get(i).getX()-1, mobs.get(i).getY()) && mobs.get(i).getX() > p1.getX())
 								mobs.get(i).changeX(-1);
 							else if(noMobs(mobs.get(i).getX()+1, mobs.get(i).getY()) && mobs.get(i).getX() < p1.getX())
@@ -955,7 +1193,9 @@ public class Screen extends JPanel implements KeyListener{
 						
 						tiles[x][y] = new FloorTile();
 						
-						if(((int)(Math.random() * 100)) < 50){
+						//OLD CODE: if(((int)(Math.random() * 100)) < 50)
+						
+						if(generator.nextInt(100) < 50){
 							
 							if(x > p1.getX() && !(tiles[x-1][y] instanceof Wall || tiles[x-1][y] instanceof Player)){
 								x--;
@@ -1018,7 +1258,22 @@ public class Screen extends JPanel implements KeyListener{
 						
 					}
 				}
-				
+
+				moves++;
+
+				// Loose 1 life point for every 8 steps moving
+				if ( moves%8 == 0){
+					ps.reduceHealth(1);
+					bb.addMessage("You just moved 8 steps. You lost 1 life point.");
+				}
+
+
+				if(ps.getHealth() == 0){
+					bb.addMessage("You Died of moves...");
+					ps.setAlive(false);
+				}
+
+
 				playerTurn = !playerTurn;
 			}
 			
@@ -1042,7 +1297,10 @@ public class Screen extends JPanel implements KeyListener{
 			repaint();
 		}
 	}
-	
+
+
+
+
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
 		int x= p1.getX();
@@ -1191,8 +1449,24 @@ public class Screen extends JPanel implements KeyListener{
 					} else if(ps.getInvItem(invHighlighted) instanceof HealthPotion){
 						HealthPotion hp = (HealthPotion) ps.getInvItem(invHighlighted);
 						
-						bb.addMessage("You restore " + hp.getRestoreAmount() + " health.");
+						bb.addMessage("You just used a health portion. You restore " + hp.getRestoreAmount() + " health.");
 						ps.gainHealth(hp.getRestoreAmount());
+						
+						ps.decreaseItemAmount(invHighlighted, 1);
+						
+					} else if(ps.getInvItem(invHighlighted) instanceof Water){
+						Water w = (Water) ps.getInvItem(invHighlighted);
+						
+						bb.addMessage("You just drunk water. You restore " + w.getRestoreAmount() + " health.");
+						ps.gainHealth(w.getRestoreAmount());
+						
+						ps.decreaseItemAmount(invHighlighted, 1);
+						
+					} else if(ps.getInvItem(invHighlighted) instanceof Food){
+						Food f = (Food) ps.getInvItem(invHighlighted);
+						
+						bb.addMessage("You just ate some food. You restore " + f.getRestoreAmount() + " health.");
+						ps.gainHealth(f.getRestoreAmount());
 						
 						ps.decreaseItemAmount(invHighlighted, 1);
 						
@@ -1248,11 +1522,79 @@ public class Screen extends JPanel implements KeyListener{
 			}
 			
 			aimingBow = false;
-			
-			
+
+
+		} else {
+			bb.addMessage("Press Enter to see your stats, or Space to play again.");
+
+			switch (key) {
+				case 10: // Enter
+					bb.addMessage("You just pressed enter. Show player stats");
+					Item goldInvAmount = null;
+
+					for(int i =0; i < ps.getInvSize(); i++){
+						Item item = ps.getInvItem(i);
+						String itemToString =item.toString();
+						if (itemToString.contains("Gold")) {
+							goldInvAmount = ps.getInvItem(i);
+
+							//System.out.println(gg);
+						}
+					}
+
+
+					if (goldInvAmount != null) {
+						//System.out.println("You have collected " + goldInvAmount.toString());
+						bb.addMessage("- You collected " + goldInvAmount.toString());
+						bb.addMessage("- You reached level " + level);
+						bb.addMessage("- You moved " + moves + " times.");
+
+					}
+					else {
+						//System.out.println("You collected no Gold");
+						bb.addMessage("- You did not collect any Gold :(");
+						bb.addMessage("- You reached level " + level);
+						bb.addMessage("- You moved " + moves + " times.");
+
+					}
+
+					break;
+
+				case 32: // Space
+					bb.addMessage("You just pressed Space. Start Over");
+					///////////////////////////////////////////////////////////////////
+
+					tiles = new Tile[90][50];
+
+					roomArr = new ArrayList<Room>();
+					ps = new PlayerStatus();
+					items = new ArrayList<ItemTile>();
+					weapDict = new WeaponDictonary();
+					mobs = new ArrayList<Monster>();
+					bb = new BottomBar();
+
+					mp = new MusicPlayer();
+					// mp.start(); //Need to change the music as i dont like stealing :/
+
+					level = 0;
+					moves = 0;
+
+					menuHighlighted = 0;
+					mainMenu = true;
+
+					// After restart, rebuilt exactly the same level
+					this.generator = new Random(seed);
+					this.mapSetUp();
+
+					break;
+
+			}
+
+
 		}
-		
-		
+
+
+
 		/*
 			38 - Up
 			40 - Down
@@ -1266,6 +1608,6 @@ public class Screen extends JPanel implements KeyListener{
 	public void keyTyped(KeyEvent e){}
 	
 	
-	
-	
+
+
 }

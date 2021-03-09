@@ -4,7 +4,7 @@ public class PlayerStatus{
 	
 	private int health, maxHealth;
 	private int mana, maxMana;
-	private int gold;
+	public int gold;
 	
 	private boolean alive;
 	
@@ -94,7 +94,7 @@ public class PlayerStatus{
 			inventory.remove(itemIndex);
 	}
 
-	public void setWeapon(Weapon wea0){
+	public void setWeapon(Weapon weap){
 		this.weap = weap;
 	}
 	
@@ -126,7 +126,10 @@ public class PlayerStatus{
 		for(int i=0; i < inventory.size()-1; i++){
 			for(int j=i+1; j < inventory.size(); j++){
 				//THERES GOTTA BE A BETTER WAY TO DO THIS
-				if((inventory.get(i) instanceof Gold && inventory.get(j) instanceof Gold || (inventory.get(i) instanceof HealthPotion && inventory.get(j) instanceof HealthPotion))){
+				if((inventory.get(i) 
+						instanceof Gold && inventory.get(j) instanceof Gold || (inventory.get(i) instanceof HealthPotion && inventory.get(j) instanceof HealthPotion)
+						|| (inventory.get(i) instanceof Water && inventory.get(j) instanceof Water)
+						|| (inventory.get(i) instanceof Food && inventory.get(j) instanceof Food))){
 					
 					inventory.get(i).addAmount(inventory.get(j).getAmount());
 					inventory.remove(j);

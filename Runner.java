@@ -4,6 +4,7 @@ public class Runner
 {
 	public static void main(String[] args)
 	{
+
 		Screen sc = new Screen();
 		
 		JFrame frame = new JFrame("NetHack Clone");
@@ -13,6 +14,7 @@ public class Runner
 		frame.pack();
 		frame.setVisible(true);
 		sc.animate();
-		
+
+
 	}
 }

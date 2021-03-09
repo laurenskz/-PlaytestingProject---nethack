@@ -1,6 +1,6 @@
 import java.net.URL;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.Clip;
 
 public class MusicPlayer {
 

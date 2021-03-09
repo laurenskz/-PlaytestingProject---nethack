@@ -20,6 +20,10 @@ public class ItemTile extends Tile{
 			return ")";
 		else if(item instanceof HealthPotion)
 			return "+";
+		else if(item instanceof Water)
+			return "~";
+		else if(item instanceof Food)
+			return "*";
 		else
 			return "E";
 	}
