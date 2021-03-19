@@ -5,8 +5,8 @@ import java.awt.Color;
 
 public class Monster extends Mob{
 	
-	private int health, attackDmg;
-	private boolean alive, waitTurn, seenPlayer;
+	public int health, attackDmg;
+	public boolean alive, waitTurn, seenPlayer;
 	
 	public Monster(int x, int y){
 		super(x, y, "a", Color.red);

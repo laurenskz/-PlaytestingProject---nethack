@@ -11,7 +11,7 @@ public class PlayerStatus{
 	
 	private boolean alive;
 	
-	private ArrayList<Item> inventory;
+	public ArrayList<Item> inventory;
 	private Weapon weap; //This will be the equipped weapon
 	private int equippedIndex;
 	

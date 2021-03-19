@@ -3,9 +3,11 @@ package A.B;
 
 public class Item{
 	private int amount;
+	public String ID ;
 	
 	public Item(int amount){
 		this.amount = amount;
+		ID = "" + FreshIDGenerator.idGenerator.getNextId() ;
 	}
 	
 	public int getAmount(){

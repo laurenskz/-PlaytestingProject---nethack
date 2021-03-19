@@ -13,11 +13,11 @@ import java.util.Random;
 
 public class Screen extends JPanel implements KeyListener{
 	
-	private Tile[][] tiles;
+	public Tile[][] tiles;
 	private Font tileFont, testFont, invFont, consoleFont, menuFont, controlFont;
 	private ArrayList<Room> roomArr;
-	private Player p1;
-	private PlayerStatus ps;
+	public  Player p1;
+	public PlayerStatus ps;
 	private int stairX, stairY; //Feel like this should be in the stair class?
 	private int p1SpawnX, p1SpawnY;
 	private Color outlineGray, gameAreaOutline;
@@ -26,15 +26,15 @@ public class Screen extends JPanel implements KeyListener{
 	private Color consoleGreen;
 	private Color bgColor;
 	private boolean inventoryScreen, mainMenu, revealControls;
-	private ArrayList<ItemTile> items;
+	public ArrayList<ItemTile> items;
 	private WeaponDictonary weapDict;
-	private ArrayList<Monster> mobs;
+	public ArrayList<Monster> mobs;
 	private int invHighlighted, menuHighlighted;
 	private int level;
 	private boolean playerTurn, aimingBow;
 	private BottomBar bb;
 	private MusicPlayer mp;
-	private int moves;
+	public int moves;
 	//private seedNumbers SeedNumbers;
 	
 	private int bgRed, bgGreen, bgBlue;

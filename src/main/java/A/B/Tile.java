@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public abstract class Tile{
 	
-	private String image = "E";
+	public String image = "E";
 	private Color color = Color.green;
 	
 	static final int BLOCK_SIZE = 10;
