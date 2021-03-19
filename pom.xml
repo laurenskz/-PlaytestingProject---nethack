@@ -4,16 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Nethack Clone Application</name>
-    <description>First try as a maven project</description>
+    <name>nethackClone</name>
 
     <groupId>Nethack</groupId>
-    <artifactId>NetHackClone</artifactId>
+    <artifactId>nethackClone</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
+    
 </project>

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NetHackClone.iml" filepath="$PROJECT_DIR$/NetHackClone.iml" />
       <module fileurl="file://$PROJECT_DIR$/../aplib/aplib.iml" filepath="$PROJECT_DIR$/../aplib/aplib.iml" />
       <module fileurl="file://$PROJECT_DIR$/../iv4xrProjectTemplate/myIv4xrLib_1.iml" filepath="$PROJECT_DIR$/../iv4xrProjectTemplate/myIv4xrLib_1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/nethackClone.iml" filepath="$PROJECT_DIR$/.idea/nethackClone.iml" />
     </modules>
   </component>
 </project>
