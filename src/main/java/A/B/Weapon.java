@@ -3,8 +3,8 @@ package A.B;
 
 public class Weapon extends Item{
 	
-	private String name;
-	private int attackDmg;
+	public String name;
+	public int attackDmg;
 	
 	public Weapon(String name, int dmg){
 		super(1);

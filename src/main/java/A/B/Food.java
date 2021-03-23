@@ -2,7 +2,7 @@ package A.B;
 
 
 public class Food extends Item{
-	private int restoreAmt;
+	public int restoreAmt;
 	
 	public Food(){
 		super(1);

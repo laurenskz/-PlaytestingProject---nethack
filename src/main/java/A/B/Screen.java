@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import java.awt.Robot;
+
 public class Screen extends JPanel implements KeyListener{
 	
 	public Tile[][] tiles;

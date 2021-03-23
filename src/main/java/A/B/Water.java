@@ -2,7 +2,7 @@ package A.B;
 
 
 public class Water extends Item{
-	private int restoreAmt;
+	public int restoreAmt;
 	
 	public Water(){
 		super(1);

@@ -2,7 +2,7 @@ package A.B;
 
 
 public class Item{
-	private int amount;
+	public int amount;
 	public String ID ;
 	
 	public Item(int amount){

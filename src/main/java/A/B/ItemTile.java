@@ -5,16 +5,21 @@ import java.awt.Color;
 
 public class ItemTile extends Tile{
 	
-	private Item item;
+	public Item item;
+	public String ID ;
+
+
+
 	
 	public ItemTile(Item item, int x, int y){
 		super(x, y);
 		super.setImage(this.processImage(item));
 		super.setColor(this.processColor(item));
 		this.item = item;
+		ID = "" + FreshIDGenerator.idGenerator.getNextId() ;
 	}
 	
-	private String processImage(Item item){
+	public String processImage(Item item){
 		if(item instanceof Gold)
 			return "$";
 		else if(item instanceof Sword)

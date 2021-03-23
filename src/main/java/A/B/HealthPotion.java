@@ -2,7 +2,7 @@ package A.B;
 
 
 public class HealthPotion extends Item{
-	private int restoreAmt;
+	public int restoreAmt;
 	
 	public HealthPotion(){
 		super(1);
