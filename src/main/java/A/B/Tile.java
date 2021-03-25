@@ -5,6 +5,7 @@ import java.awt.Color;
 public abstract class Tile{
 	
 	public String image = "E";
+	public String ID ;
 	private Color color = Color.green;
 	
 	static final int BLOCK_SIZE = 10;
@@ -17,6 +18,7 @@ public abstract class Tile{
 	public Tile(int x, int y){
 		this.x = x;
 		this.y = y;
+		ID = "" + FreshIDGenerator.idGenerator.getNextId() ;
 	}
 	
 	

@@ -1303,34 +1303,34 @@ public class Screen extends JPanel implements KeyListener{
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public void useItemFromInventory() {
-		if(ps.getInvItem(invHighlighted) instanceof Weapon){
-			ps.setWeapon((Weapon)ps.getInvItem(invHighlighted));
-			ps.setEquipped(invHighlighted);
-			bb.addMessage("You equip " + (Weapon)ps.getInvItem(invHighlighted) + ".");
-		} else if(ps.getInvItem(invHighlighted) instanceof HealthPotion){
-			HealthPotion hp = (HealthPotion) ps.getInvItem(invHighlighted);
+	public void useItemFromInventory(int indexOfItemInInventory) {
+		if(ps.getInvItem(indexOfItemInInventory) instanceof Weapon){
+			ps.setWeapon((Weapon)ps.getInvItem(indexOfItemInInventory));
+			ps.setEquipped(indexOfItemInInventory);
+			bb.addMessage("You equip " + (Weapon)ps.getInvItem(indexOfItemInInventory) + ".");
+		} else if(ps.getInvItem(indexOfItemInInventory) instanceof HealthPotion){
+			HealthPotion hp = (HealthPotion) ps.getInvItem(indexOfItemInInventory);
 
 			bb.addMessage("You just used a health portion. You restore " + hp.getRestoreAmount() + " health.");
 			ps.gainHealth(hp.getRestoreAmount());
 
-			ps.decreaseItemAmount(invHighlighted, 1);
+			ps.decreaseItemAmount(indexOfItemInInventory, 1);
 
-		} else if(ps.getInvItem(invHighlighted) instanceof Water){
-			Water w = (Water) ps.getInvItem(invHighlighted);
+		} else if(ps.getInvItem(indexOfItemInInventory) instanceof Water){
+			Water w = (Water) ps.getInvItem(indexOfItemInInventory);
 
 			bb.addMessage("You just drunk water. You restore " + w.getRestoreAmount() + " health.");
 			ps.gainHealth(w.getRestoreAmount());
 
-			ps.decreaseItemAmount(invHighlighted, 1);
+			ps.decreaseItemAmount(indexOfItemInInventory, 1);
 
-		} else if(ps.getInvItem(invHighlighted) instanceof Food){
-			Food f = (Food) ps.getInvItem(invHighlighted);
+		} else if(ps.getInvItem(indexOfItemInInventory) instanceof Food){
+			Food f = (Food) ps.getInvItem(indexOfItemInInventory);
 
 			bb.addMessage("You just ate some food. You restore " + f.getRestoreAmount() + " health.");
 			ps.gainHealth(f.getRestoreAmount());
 
-			ps.decreaseItemAmount(invHighlighted, 1);
+			ps.decreaseItemAmount(indexOfItemInInventory, 1);
 
 		}
 	}
@@ -1480,6 +1480,8 @@ public class Screen extends JPanel implements KeyListener{
 					break;
 				
 				case 10://Enter
+				    useItemFromInventory(invHighlighted) ;
+				    /*
 					if(ps.getInvItem(invHighlighted) instanceof Weapon){
 						ps.setWeapon((Weapon)ps.getInvItem(invHighlighted));
 						ps.setEquipped(invHighlighted);
@@ -1509,6 +1511,7 @@ public class Screen extends JPanel implements KeyListener{
 						ps.decreaseItemAmount(invHighlighted, 1);
 						
 					}
+					*/
 					break;
 					
 				case 8://backspace - delete item
