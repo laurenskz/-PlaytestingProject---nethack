@@ -1,6 +1,8 @@
 package A.B;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
@@ -12,6 +14,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import java.awt.Robot;
+import java.awt.Window;
 
 public class Screen extends JPanel implements KeyListener{
 	
@@ -53,6 +56,9 @@ public class Screen extends JPanel implements KeyListener{
 
 	//private Random seedNum;
 	//private Random generator;
+	
+	// set this to true to close the game in the next update-round
+	private boolean stop = false ;
 
 
 
@@ -118,6 +124,10 @@ public class Screen extends JPanel implements KeyListener{
 	public void addNotify(){
 		super.addNotify();
 		requestFocus();
+	}
+	
+	public void stopAtNextUpdate() {
+	    stop = true ;
 	}
 	
 	public Dimension getPreferredSize(){
@@ -1131,6 +1141,12 @@ public class Screen extends JPanel implements KeyListener{
 				Thread.sleep(10); 
 			}catch(InterruptedException ex){ 
 				Thread.currentThread().interrupt(); 
+			}
+			if(stop) {
+			    // close the game window if the stop-flag is set to true, then exit:
+			    Window win = SwingUtilities.getWindowAncestor(this);
+			    win.dispose();
+			    return ;
 			}
 			
 			if(p1.getX() == stairX && p1.getY() == stairY){
