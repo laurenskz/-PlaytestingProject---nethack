@@ -12,7 +12,7 @@ public class PlayerStatus{
 	private boolean alive;
 	
 	public ArrayList<Item> inventory;
-	private Weapon weap; //This will be the equipped weapon
+	public Weapon weap; //This will be the equipped weapon
 	private int equippedIndex;
 	
 	public PlayerStatus(){			
@@ -29,6 +29,8 @@ public class PlayerStatus{
 		inventory.add(new BareHand(1));
 		weap = new BareHand(1);
 		inventory.add(new HealthPotion());
+		//inventory.add(new Food());
+		//inventory.add(new Water());
 		equippedIndex = 0;
 	}
 	

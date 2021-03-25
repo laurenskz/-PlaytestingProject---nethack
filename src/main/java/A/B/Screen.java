@@ -20,20 +20,20 @@ public class Screen extends JPanel implements KeyListener{
 	private ArrayList<Room> roomArr;
 	public  Player p1;
 	public PlayerStatus ps;
-	private int stairX, stairY; //Feel like this should be in the stair class?
+	public int stairX, stairY; //Feel like this should be in the stair class?
 	private int p1SpawnX, p1SpawnY;
 	private Color outlineGray, gameAreaOutline;
 	private Color healthRed, manaBlue;
 	private Color invScreenBG, invScreenHighlight, invScreenEquipped;
 	private Color consoleGreen;
 	private Color bgColor;
-	private boolean inventoryScreen, mainMenu, revealControls;
+	public boolean inventoryScreen, mainMenu, revealControls;
 	public ArrayList<ItemTile> items;
 	private WeaponDictonary weapDict;
 	public ArrayList<Monster> mobs;
-	private int invHighlighted, menuHighlighted;
+	public int invHighlighted, menuHighlighted;
 	private int level;
-	private boolean playerTurn, aimingBow;
+	public boolean playerTurn, aimingBow;
 	private BottomBar bb;
 	private MusicPlayer mp;
 	public int moves;
@@ -1301,8 +1301,41 @@ public class Screen extends JPanel implements KeyListener{
 			repaint();
 		}
 	}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	public void useItemFromInventory() {
+		if(ps.getInvItem(invHighlighted) instanceof Weapon){
+			ps.setWeapon((Weapon)ps.getInvItem(invHighlighted));
+			ps.setEquipped(invHighlighted);
+			bb.addMessage("You equip " + (Weapon)ps.getInvItem(invHighlighted) + ".");
+		} else if(ps.getInvItem(invHighlighted) instanceof HealthPotion){
+			HealthPotion hp = (HealthPotion) ps.getInvItem(invHighlighted);
 
+			bb.addMessage("You just used a health portion. You restore " + hp.getRestoreAmount() + " health.");
+			ps.gainHealth(hp.getRestoreAmount());
+
+			ps.decreaseItemAmount(invHighlighted, 1);
+
+		} else if(ps.getInvItem(invHighlighted) instanceof Water){
+			Water w = (Water) ps.getInvItem(invHighlighted);
+
+			bb.addMessage("You just drunk water. You restore " + w.getRestoreAmount() + " health.");
+			ps.gainHealth(w.getRestoreAmount());
+
+			ps.decreaseItemAmount(invHighlighted, 1);
+
+		} else if(ps.getInvItem(invHighlighted) instanceof Food){
+			Food f = (Food) ps.getInvItem(invHighlighted);
+
+			bb.addMessage("You just ate some food. You restore " + f.getRestoreAmount() + " health.");
+			ps.gainHealth(f.getRestoreAmount());
+
+			ps.decreaseItemAmount(invHighlighted, 1);
+
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 	public void keyPressed(KeyEvent e){
@@ -1430,6 +1463,7 @@ public class Screen extends JPanel implements KeyListener{
 		
 		
 		} else if(inventoryScreen){
+
 			
 			switch(key){
 				
@@ -1599,6 +1633,12 @@ public class Screen extends JPanel implements KeyListener{
 
 
 
+
+
+
+
+
+
 		/*
 			38 - Up
 			40 - Down
@@ -1610,8 +1650,7 @@ public class Screen extends JPanel implements KeyListener{
 	
 	public void keyReleased(KeyEvent e){}
 	public void keyTyped(KeyEvent e){}
-	
-	
+
 
 
 }
