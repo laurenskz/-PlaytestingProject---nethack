@@ -1320,6 +1320,7 @@ public class Screen extends JPanel implements KeyListener{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public void useItemFromInventory(int indexOfItemInInventory) {
+
 		if(ps.getInvItem(indexOfItemInInventory) instanceof Weapon){
 			ps.setWeapon((Weapon)ps.getInvItem(indexOfItemInInventory));
 			ps.setEquipped(indexOfItemInInventory);
