@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class PlayerStatus{
 	
-	private int health, maxHealth;
+	public int health, maxHealth;
 	private int mana, maxMana;
 	public int gold;
 	
-	private boolean alive;
+	public boolean alive;
 	
 	public ArrayList<Item> inventory;
 	public Weapon weap; //This will be the equipped weapon
@@ -29,7 +29,8 @@ public class PlayerStatus{
 		inventory.add(new BareHand(1));
 		weap = new BareHand(1);
 		inventory.add(new HealthPotion());
-		//inventory.add(new Food());
+		//inventory.add(new Sword("of something",5));
+		//inventory.add(new Bow("of something else",5));
 		//inventory.add(new Water());
 		equippedIndex = 0;
 	}

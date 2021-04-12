@@ -8,7 +8,7 @@ public class Sword extends Weapon{
 	}
 	
 	public String toString(){
-		return super.toString() + "Sword of " + getName();
+		return super.toString() + "sword of " + getName();
 	}
 	
 }

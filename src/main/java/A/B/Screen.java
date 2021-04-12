@@ -32,10 +32,10 @@ public class Screen extends JPanel implements KeyListener{
 	private Color bgColor;
 	public boolean inventoryScreen, mainMenu, revealControls;
 	public ArrayList<ItemTile> items;
-	private WeaponDictonary weapDict;
+	public WeaponDictonary weapDict;
 	public ArrayList<Monster> mobs;
 	public int invHighlighted, menuHighlighted;
-	private int level;
+	public int level;
 	public boolean playerTurn, aimingBow;
 	private BottomBar bb;
 	private MusicPlayer mp;
@@ -207,8 +207,8 @@ public class Screen extends JPanel implements KeyListener{
 			}
 			
 			if(stairX != -1 && stairY != -1)
-				tiles[stairX][stairY] = new StairTile(stairX, stairY);			
-			
+				tiles[stairX][stairY] = new StairTile(stairX, stairY);		
+						
 			for(int i=0; i < mobs.size(); i++){
 				if(mobs.get(i).getAlive())
 					tiles[mobs.get(i).getX()][mobs.get(i).getY()] = mobs.get(i);
@@ -494,9 +494,12 @@ public class Screen extends JPanel implements KeyListener{
 				} while(!(tiles[randX][randY] instanceof FloorTile));
 			} while(!isInRoom(randX, randY));
 			
-			tiles[randX][randY] = new StairTile(randX, randY);
+			tiles [randX][randY] = new StairTile(randX, randY);
+			
 			stairX = randX;
 			stairY = randY;
+			
+			
 			// System.out.println("x:"+randX + "y:"+randY);
 			 // levelMap
 			 levelMap[randX][randY] = ">";
