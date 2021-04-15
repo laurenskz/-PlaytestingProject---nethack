@@ -29,6 +29,8 @@ public class PlayerStatus{
 		inventory.add(new BareHand(1));
 		weap = new BareHand(1);
 		inventory.add(new HealthPotion());
+		//inventory.add(new HealthPotion());
+			
 		//inventory.add(new Sword("of something",5));
 		//inventory.add(new Bow("of something else",5));
 		//inventory.add(new Water());
@@ -91,7 +93,7 @@ public class PlayerStatus{
 	
 	public void addItem(Item item){
 		inventory.add(item);
-		this.sort();
+		//this.sort();
 	}
 	
 	public void decreaseItemAmount(int itemIndex, int amount){
@@ -128,19 +130,19 @@ public class PlayerStatus{
 		inventory.remove(index);
 	}
 	
-	private void sort(){
-		for(int i=0; i < inventory.size()-1; i++){
-			for(int j=i+1; j < inventory.size(); j++){
-				//THERES GOTTA BE A BETTER WAY TO DO THIS
-				if((inventory.get(i) instanceof Gold && inventory.get(j) instanceof Gold || (inventory.get(i) instanceof HealthPotion && inventory.get(j) instanceof HealthPotion))){
-					
-					inventory.get(i).addAmount(inventory.get(j).getAmount());
-					inventory.remove(j);
-					
-				}
-			}
-		}
-	}
+//	private void sort(){
+//		for(int i=0; i < inventory.size()-1; i++){
+//			for(int j=i+1; j < inventory.size(); j++){
+//				//THERES GOTTA BE A BETTER WAY TO DO THIS
+//				if((inventory.get(i) instanceof Gold && inventory.get(j) instanceof Gold || (inventory.get(i) instanceof HealthPotion && inventory.get(j) instanceof HealthPotion))){
+//					
+//					inventory.get(i).addAmount(inventory.get(j).getAmount());
+//					inventory.remove(j);
+//					
+//				}
+//			}
+//		}
+//	}
 	
 	
 	
