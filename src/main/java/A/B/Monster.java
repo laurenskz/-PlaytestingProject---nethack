@@ -18,7 +18,7 @@ public class Monster extends Mob{
 		seenPlayer = false;
 		
 		
-	}
+	} 
 	
 	public Monster(int x, int y, Color color){
 		super(x, y, "B", color);

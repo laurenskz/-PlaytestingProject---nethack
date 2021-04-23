@@ -27,12 +27,13 @@ public class PlayerStatus{
 		
 		inventory = new ArrayList<Item>();
 		inventory.add(new BareHand(1));
+		
 		weap = new BareHand(1);
 		inventory.add(new HealthPotion());
 		//inventory.add(new HealthPotion());
 			
-		//inventory.add(new Sword("of something",5));
-		//inventory.add(new Bow("of something else",5));
+		//inventory.add(new Sword("something",5));
+		inventory.add(new Bow("something else",5));
 		//inventory.add(new Water());
 		equippedIndex = 0;
 	}
