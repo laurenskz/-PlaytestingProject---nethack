@@ -31,9 +31,22 @@ public class PlayerStatus{
 		weap = new BareHand(1);
 		inventory.add(new HealthPotion());
 		//inventory.add(new HealthPotion());
+
+		inventory.add(new Food());
+		inventory.add(new Water());
+
+
+		//inventory.add(new HealthPotion());
 			
-		//inventory.add(new Sword("something",5));
-		inventory.add(new Bow("something else",5));
+		//inventory.add(new Sword("something",2));
+//		inventory.add(new Bow("something else",3));
+//		inventory.add(new Sword("something more more ",9));
+//		inventory.add(new Sword("something more more additional ",4));
+//		inventory.add(new Bow("something more more more else",6));
+//		inventory.add(new Bow("something (this is the weapon with the highest damage in inventory)",11));
+		inventory.add(new Sword("something more",1));
+
+
 		//inventory.add(new Water());
 		equippedIndex = 0;
 	}
