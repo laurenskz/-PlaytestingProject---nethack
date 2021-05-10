@@ -32,8 +32,8 @@ public class PlayerStatus{
 		inventory.add(new HealthPotion());
 		//inventory.add(new HealthPotion());
 
-		inventory.add(new Food());
-		inventory.add(new Water());
+		//inventory.add(new Food());
+		//inventory.add(new Water());
 
 
 		//inventory.add(new HealthPotion());
@@ -44,7 +44,7 @@ public class PlayerStatus{
 //		inventory.add(new Sword("something more more additional ",4));
 //		inventory.add(new Bow("something more more more else",6));
 //		inventory.add(new Bow("something (this is the weapon with the highest damage in inventory)",11));
-		inventory.add(new Sword("something more",1));
+		//inventory.add(new Sword("something more",1));
 
 
 		//inventory.add(new Water());
@@ -112,8 +112,16 @@ public class PlayerStatus{
 	
 	public void decreaseItemAmount(int itemIndex, int amount){
 		inventory.get(itemIndex).decreaseAmount(amount);
-		if(inventory.get(itemIndex).getAmount() == 0)
+		if(inventory.get(itemIndex).getAmount() == 0) {
 			inventory.remove(itemIndex);
+			if (itemIndex<getEquippedIndex()) {
+				
+				int EquippedIndex = getEquippedIndex();
+				setEquipped(EquippedIndex-1);
+				
+				
+			}
+		}
 	}
 
 	public void setWeapon(Weapon weap){
