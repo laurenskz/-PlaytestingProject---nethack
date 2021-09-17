@@ -16,7 +16,7 @@ public class ItemTile extends Tile{
 		super.setImage(this.processImage(item));
 		super.setColor(this.processColor(item));
 		this.item = item;
-		ID = "" + FreshIDGenerator.idGenerator.getNextId() ;
+		ID = "" + FreshIDGenerator.instance.getNextId() ;
 	}
 	
 	public String processImage(Item item){

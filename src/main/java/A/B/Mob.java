@@ -9,7 +9,7 @@ public class Mob extends Tile{
     
 	public Mob(int x, int y, String image, Color color){
 		super(image, color, x, y);
-		ID = ""  + FreshIDGenerator.idGenerator.getNextId() ;
+		ID = ""  + FreshIDGenerator.instance.getNextId() ;
 	}
 	
 }

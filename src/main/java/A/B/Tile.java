@@ -18,7 +18,7 @@ public abstract class Tile{
 	public Tile(int x, int y){
 		this.x = x;
 		this.y = y;
-		ID = "" + FreshIDGenerator.idGenerator.getNextId() ;
+		ID = "" + FreshIDGenerator.instance.getNextId() ;
 	}
 	
 	

@@ -7,7 +7,7 @@ public class Item{
 	
 	public Item(int amount){
 		this.amount = amount;
-		ID = "" + FreshIDGenerator.idGenerator.getNextId() ;
+		ID = "" + FreshIDGenerator.instance.getNextId() ;
 	}
 	
 	public int getAmount(){

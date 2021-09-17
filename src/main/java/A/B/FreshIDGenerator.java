@@ -2,7 +2,7 @@ package A.B;
 
 public class FreshIDGenerator {
     
-    public static FreshIDGenerator idGenerator = new FreshIDGenerator() ;
+    public static FreshIDGenerator instance = new FreshIDGenerator() ;
        
     private int nextIdToGenerate = 0 ;
 
