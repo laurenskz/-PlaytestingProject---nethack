@@ -1100,7 +1100,15 @@ public class Screen extends JPanel implements KeyListener{
 		return true;
 	}
 
-	private void fireBow(int x, int y, int direction){
+    public int getCols() {
+        return cols;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    private void fireBow(int x, int y, int direction){
 		//1 - Up, 2 - Right, 3 -Down, 4 - Left
 		do{
 			switch(direction){
@@ -1281,8 +1289,7 @@ public class Screen extends JPanel implements KeyListener{
 					}
 				}
 
-				moves++;
-
+                moves++;
 				// Loose 1 life point for every 8 steps moving
 				if ( moves%8 == 0){
 					ps.reduceHealth(1);
