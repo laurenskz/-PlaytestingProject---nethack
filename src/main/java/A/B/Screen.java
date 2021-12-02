@@ -63,7 +63,7 @@ public class Screen extends JPanel implements KeyListener {
     public Screen(NethackConfiguration configuration) {
         this.configuration = configuration;
         this.generator = new Random(configuration.seed);
-        tiles = new Tile[configuration.rows][configuration.columns];
+        tiles = new Tile[configuration.columns][configuration.rows];
 
         roomArr = new ArrayList<Room>();
         ps = new PlayerStatus();
@@ -311,7 +311,7 @@ public class Screen extends JPanel implements KeyListener {
 
         rows = configuration.rows;
         cols = configuration.columns;
-        levelMap = new String[rows][cols];
+        levelMap = new String[cols][rows];
 
         //ArrayList[] levelMap = new ArrayList[rows];
         //levelMap[0] = new ArrayList(); // add another ArrayList object to [0,0]
@@ -583,8 +583,8 @@ public class Screen extends JPanel implements KeyListener {
 
         }
 
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 System.out.print(levelMap[j][i]);
                 //System.out.print(tiles[j][i]);
             }
@@ -972,7 +972,11 @@ public class Screen extends JPanel implements KeyListener {
 
         for (int i = startX; i < startX + sizeX; i++) {
             for (int j = startY; j < startY + sizeY; j++) {
-                tiles[i][j] = new FloorTile(i, j);
+                try {
+                    tiles[i][j] = new FloorTile(i, j);
+                } catch (Exception e) {
+                    System.out.println();
+                }
                 // levelMap
                 levelMap[i][j] = " ";
 
