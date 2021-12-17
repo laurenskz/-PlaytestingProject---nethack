@@ -9,6 +9,11 @@ public class NethackConfiguration {
     public int columns = 90;
     public int roomCount = 15;
 
+    public int minItems = 2;
+    public int maxItems = 140;
+
     public int minMobs = 0;
     public int maxMobs = 1;
+
+    public int initialHealth = 10;
 }

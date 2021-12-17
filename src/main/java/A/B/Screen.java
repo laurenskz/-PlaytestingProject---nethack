@@ -66,7 +66,7 @@ public class Screen extends JPanel implements KeyListener {
         tiles = new Tile[configuration.columns][configuration.rows];
 
         roomArr = new ArrayList<Room>();
-        ps = new PlayerStatus();
+        ps = new PlayerStatus(configuration);
         items = new ArrayList<ItemTile>();
         weapDict = new WeaponDictonary();
         mobs = new ArrayList<Monster>();
@@ -506,7 +506,7 @@ public class Screen extends JPanel implements KeyListener {
             //System.out.println(tiles[randX][randY]);
 
             //Gen & placing random items   --> OLD CODE: for(int i =0; i < ((int)(Math.random() * 140 + 2)); i++)
-            for (int i = 0; i < (2 + (generator.nextInt(140))); i++) {
+            for (int i = 0; i < (configuration.maxItems + (generator.nextInt(configuration.maxItems))); i++) {
                 //System.out.println("" + i);
                 do {
                     do {
@@ -1588,7 +1588,7 @@ public class Screen extends JPanel implements KeyListener {
                     tiles = new Tile[configuration.columns][configuration.rows];
 
                     roomArr = new ArrayList<Room>();
-                    ps = new PlayerStatus();
+                    ps = new PlayerStatus(configuration);
                     items = new ArrayList<ItemTile>();
                     weapDict = new WeaponDictonary();
                     mobs = new ArrayList<Monster>();
