@@ -36,4 +36,14 @@ public class Room{
 	public ArrayList<Integer> getConnections(){
 		return connections;
 	}
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "startX=" + startX +
+                ", startY=" + startY +
+                ", sizeX=" + sizeX +
+                ", sizeY=" + sizeY +
+                '}';
+    }
 }
