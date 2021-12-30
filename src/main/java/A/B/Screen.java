@@ -303,6 +303,10 @@ public class Screen extends JPanel implements KeyListener {
 
     }
 
+    public ArrayList<Room> getRoomArr() {
+        return roomArr;
+    }
+
     private void mapSetUp() {
         level++;
 
